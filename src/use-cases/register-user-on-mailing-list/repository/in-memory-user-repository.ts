@@ -1,26 +1,32 @@
-import { UserRepository } from '../ports/user-repository';
-import { UserData } from '../user-data';
+import { UserRepository } from '../ports/user-repository'
+import { UserData } from '../user-data'
 
 export class InMemoryUserRepository implements UserRepository {
-  private repository: UserData[];
+  private repository: UserData[]
 
-  constructor(users: UserData[]) {
-    this.repository = users;
+  constructor (users: UserData[]) {
+    this.repository = users
   }
 
-  add(user: UserData): Promise<void> {
-    throw new Error('Method not implemented.');
+  async add (user: UserData): Promise<void> {
+    const exists = await this.exists(user)
+    if (!exists) {
+      this.repository.push(user)
+    }
   }
 
-  findByEmail(email: string): Promise<UserData> {
-    return null;
+  async findByEmail (email: string): Promise<UserData|null> {
+    return this.repository.find(user => user.email === email) || null
   }
 
-  findAllUsers(): Promise<UserData[]> {
-    throw new Error('Method not implemented.');
+  async findAll (): Promise<UserData[]> {
+    return this.repository
   }
 
-  exists(user: UserData): Promise<boolean> {
-    throw new Error('Method not implemented.');
+  async exists (user: UserData): Promise<boolean> {
+    if (await this.findByEmail(user.email) === null) {
+      return false
+    }
+    return true
   }
 }
