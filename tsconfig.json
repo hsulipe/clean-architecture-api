@@ -7,9 +7,14 @@
         "strict": true,
         "target": "ES2021",
         "esModuleInterop": true,
-        "allowJs": true
+        "allowJs": true,
+        "noEmit": false
     },
     "include": [
         "src"
+    ],
+    "exclude": [
+        "**/*.spec.ts",
+        "**/*.test.ts"
     ]
 }
