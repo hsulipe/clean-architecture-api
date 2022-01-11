@@ -1,10 +1,11 @@
 module.exports = {
   clearMocks: true,
   collectCoverage: true,
-  coverageDirectory: 'c overage',
+  coverageDirectory: 'coverage',
   coverageProvider: 'v8',
   roots: [
-    '<rootDir>/src',
+    '<rootDir>/src/',
+    '<rootDir>/tests/',
   ],
   testEnvironment: 'node',
   transform: {
